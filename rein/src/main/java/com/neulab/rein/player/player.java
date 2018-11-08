@@ -2,19 +2,33 @@ package com.neulab.rein.player;
 
 public class Player {
 
-    public Double baseHP;
-    public Double baseEP;
-    public Double baseSP;
+    private Double baseHP;
+    private Double baseEP;
+    private Double baseSP;
 
-    public Double curHP;
-    public Double curEP;
-    public Double curSP;
+    private Double curHP;
+    private Double curEP;
+    private Double curSP;
 
 
-    public Double baseATK;
-    public Double curATK;
+    private Double baseATK;
+    private Double curATK;
 
-    public Integer shell;
+    private Integer shell;
+    private Integer encourage;
+    private Integer state;
+
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+
+
 
     public Integer getEncourage() {
         return encourage;
@@ -24,7 +38,6 @@ public class Player {
         this.encourage = encourage;
     }
 
-    public Integer encourage;
 
     public Double getBaseATK() {
         return baseATK;
