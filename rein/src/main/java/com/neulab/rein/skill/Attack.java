@@ -11,7 +11,7 @@ public class Attack implements Skill {
     private static Logger logger = LoggerFactory.getLogger(Attack.class);
 
 
-    public String name = "normal attack";
+    public String name = "普通攻击";
 
     @Override
     public void apply(Player caster, List<Player> targetPlayers) {
@@ -40,6 +40,11 @@ public class Attack implements Skill {
     @Override
     public Boolean isAvailable(Player caster, List<Player> targetPlayers) {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 
 }

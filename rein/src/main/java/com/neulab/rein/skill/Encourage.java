@@ -1,6 +1,7 @@
 package com.neulab.rein.skill;
 
 import com.neulab.rein.player.Player;
+import com.neulab.rein.utils.GameContants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,8 +9,7 @@ import java.util.List;
 
 public class Encourage implements Skill {
 
-    private static Logger logger = LoggerFactory.getLogger(Encourage.class);
-
+    private String name = "大家加油啊!";
     private Double costSP = 60.0;
     private Integer maxEffort = 3;
 
@@ -21,6 +21,9 @@ public class Encourage implements Skill {
         }
 
         for (Player player: targetPlayers) {
+            if (player.getState() == GameContants.PLAYER_STATE_DEAD) {
+                continue;
+            }
             player.setEncourage(this.maxEffort);
         }
 
@@ -35,5 +38,10 @@ public class Encourage implements Skill {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }
