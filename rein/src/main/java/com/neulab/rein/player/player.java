@@ -1,5 +1,9 @@
 package com.neulab.rein.player;
 
+import com.neulab.rein.utils.GameContants;
+
+import java.util.GregorianCalendar;
+
 public class Player {
 
     private Double baseHP;
@@ -18,6 +22,19 @@ public class Player {
     private Integer encourage;
     private Integer state;
 
+    public Player(Double baseHP, Double baseEP, Double baseSP, Double baseATK) {
+        this.baseHP = baseHP;
+        this.baseEP = baseEP;
+        this.baseSP = baseSP;
+        this.baseATK = baseATK;
+        this.curHP = this.baseHP;
+        this.curEP = this.baseEP;
+        this.curSP = this.baseSP;
+        this.curATK = this.baseATK;
+        this.shell = 0;
+        this.encourage = 0;
+        this.state = GameContants.PLAYER_STATE_ALIVE;
+    }
 
     public Integer getState() {
         return state;
