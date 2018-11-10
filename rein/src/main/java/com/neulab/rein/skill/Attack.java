@@ -10,8 +10,8 @@ public class Attack implements Skill {
 
     private static Logger logger = LoggerFactory.getLogger(Attack.class);
 
-
-    public String name = "普通攻击";
+    public static String name = "NormalAttack";
+    public static String displayName = "普通攻击";
 
     @Override
     public void apply(Player caster, List<Player> targetPlayers) {

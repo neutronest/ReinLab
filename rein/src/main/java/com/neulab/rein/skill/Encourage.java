@@ -9,7 +9,8 @@ import java.util.List;
 
 public class Encourage implements Skill {
 
-    private String name = "大家加油啊!";
+    public static String name = "encourage";
+    public static String displayName = "大家加油啊!";
     private Double costSP = 60.0;
     private Integer maxEffort = 3;
 

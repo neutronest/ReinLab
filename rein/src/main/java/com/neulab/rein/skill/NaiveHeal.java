@@ -6,8 +6,8 @@ import java.util.List;
 
 public class NaiveHeal implements Skill {
 
-
-    public String name = "小回复";
+    public static String name = "NaiveHeal";
+    public static String displayName = "小回复";
     private Double costEP = 30.0;
     private Double healHP = 1200.0;
 

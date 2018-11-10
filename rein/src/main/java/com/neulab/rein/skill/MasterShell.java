@@ -7,8 +7,8 @@ import java.util.List;
 
 public class MasterShell implements Skill {
 
-
-    public String name = "大地之墙";
+    public static String name = "MasterShell";
+    public static String displayName = "大地之墙";
     private Double costEP = 80.0;
 
 

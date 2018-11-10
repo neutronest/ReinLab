@@ -7,8 +7,9 @@ import java.util.List;
 
 public class ShadowRaid implements Skill {
 
-    private String name = "秘技- 幻影奇袭!";
-    private Double costSP = 100.0;
+    public static String name = "ShadowRaid";
+    public static String displayName = "秘技- 幻影奇袭!";
+    private static Double costSP = 100.0;
 
     @Override
     public void apply(Player caster, List<Player> targetPlayers) {

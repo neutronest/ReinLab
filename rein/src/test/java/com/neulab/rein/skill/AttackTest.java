@@ -20,9 +20,6 @@ public class AttackTest {
     @Test
     public void shouldBeAvailable() throws Exception {
 
-
-
-
         Attack attackSkill = new Attack();
 
         Pair<Player, List<Player>> playerPair = getAssignPlayers();

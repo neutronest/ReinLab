@@ -6,7 +6,8 @@ import java.util.List;
 
 public class DoubleAttack implements Skill {
 
-    private String name = "双连击";
+    public static String name = "DoubleAttack";
+    private static String displayName = "双连击";
     private Double costSP = 30.0;
 
     @Override

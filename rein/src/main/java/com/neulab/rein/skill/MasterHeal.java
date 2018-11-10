@@ -7,7 +7,8 @@ import java.util.List;
 
 public class MasterHeal implements Skill {
 
-    public String name = "风之愈";
+    public static String name = "MasterHeal";
+    public static String displayName = "风之愈";
     private Double costEP = 60.0;
     private Double healHP = 1500.0;
 
