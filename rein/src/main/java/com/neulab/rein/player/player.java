@@ -3,6 +3,7 @@ package com.neulab.rein.player;
 import com.neulab.rein.utils.GameContants;
 
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class Player {
 
@@ -21,6 +22,8 @@ public class Player {
     private Integer shell;
     private Integer encourage;
     private Integer state;
+
+    private List<String> skillTokens;
 
     public Player(Double baseHP, Double baseEP, Double baseSP, Double baseATK) {
         this.baseHP = baseHP;

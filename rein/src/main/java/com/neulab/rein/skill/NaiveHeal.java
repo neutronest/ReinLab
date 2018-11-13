@@ -29,9 +29,6 @@ public class NaiveHeal implements Skill {
         }
         Double targetPlayerCurHP = targetPlayer.getCurHP();
         targetPlayer.setCurHP(Math.min(targetPlayer.getBaseHP(),  targetPlayerCurHP + this.healHP ));
-
-
-
     }
 
     @Override
