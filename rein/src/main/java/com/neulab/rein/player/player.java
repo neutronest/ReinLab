@@ -25,7 +25,7 @@ public class Player {
 
     private List<String> skillTokens;
 
-    public Player(Double baseHP, Double baseEP, Double baseSP, Double baseATK) {
+    public Player(Double baseHP, Double baseEP, Double baseSP, Double baseATK, List<String> skillTokens) {
         this.baseHP = baseHP;
         this.baseEP = baseEP;
         this.baseSP = baseSP;
