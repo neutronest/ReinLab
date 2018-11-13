@@ -40,7 +40,7 @@ public class DoubleAttackTest {
     }
 
     @Test
-    public void shouldBeNotAvailableWhenEPNotEnough() {
+    public void shouldBeNotAvailableWhenSPNotEnough() {
         DoubleAttack doubleAttackSkill = new DoubleAttack();
         Pair<Player, List<Player>> playerPair = getAssignPlayers();
         Player caster = playerPair.getKey();
@@ -52,4 +52,6 @@ public class DoubleAttackTest {
         caster.setCurSP(0.0);
         Assert.assertEquals(false, doubleAttackSkill.isAvailable(caster, targetPlayers));
     }
+
+
 }
