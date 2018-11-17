@@ -7,6 +7,9 @@ import java.util.List;
 
 public class Player {
 
+    private String name;
+    private String displayName;
+
     private Double baseHP;
     private Double baseEP;
     private Double baseSP;
@@ -24,8 +27,19 @@ public class Player {
     private Integer state;
 
     private List<String> skillTokens;
+    private Boolean isEnemy;
 
-    public Player(Double baseHP, Double baseEP, Double baseSP, Double baseATK, List<String> skillTokens) {
+    public Player(
+            String name,
+            String displayName,
+            Double baseHP,
+            Double baseEP,
+            Double baseSP,
+            Double baseATK,
+            List<String> skillTokens,
+            Boolean isEnemy) {
+        this.name = name;
+        this.displayName = displayName;
         this.baseHP = baseHP;
         this.baseEP = baseEP;
         this.baseSP = baseSP;
@@ -37,6 +51,7 @@ public class Player {
         this.shell = 0;
         this.encourage = 0;
         this.state = GameContants.PLAYER_STATE_ALIVE;
+        this.isEnemy = isEnemy;
     }
 
     public Integer getState() {
@@ -134,6 +149,30 @@ public class Player {
         this.baseSP = baseSP;
     }
 
+
+    public Boolean getIsEnemy() {
+        return isEnemy;
+    }
+
+    public void setIsEnemy(Boolean enemy) {
+        isEnemy = enemy;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
 
 
 

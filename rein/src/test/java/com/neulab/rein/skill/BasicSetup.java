@@ -32,10 +32,41 @@ public class BasicSetup {
             }
         };
 
-        Player caster = new Player(assignHP, assignEP, assignSP, assignATK, estelleSkillTokens);
+        Player caster = new Player(
+                "estelle",
+                "艾丝蒂尔",
+                assignHP,
+                assignEP,
+                assignSP,
+                assignATK,
+                estelleSkillTokens,
+                false);
         List<Player> players = new ArrayList<Player>();
+        List<String> names = new ArrayList<String>(){
+            {
+                add("estelle");
+                add("joshua");
+                add("leon");
+            }
+        };
+        List<String> displayNames = new ArrayList<String>() {
+            {
+                add("艾丝蒂尔");
+                add("约修亚");
+                add("剑帝莱维");
+            }
+        };]
+
         for (int i=0; i<3; i++) {
-            players.add(new Player(assignHP, assignEP, assignSP, assignATK, joshuaSkillTokens));
+            players.add(new Player(
+                    names.get(i),
+                    displayNames.get(i),
+                    assignHP,
+                    assignEP,
+                    assignSP,
+                    assignATK,
+                    joshuaSkillTokens,
+                    false));
         }
         return new Pair<Player, List<Player>>(caster, players);
     }

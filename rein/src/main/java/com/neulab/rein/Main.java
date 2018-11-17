@@ -1,6 +1,8 @@
 package com.neulab.rein;
 
+import com.neulab.rein.player.Player;
 import com.neulab.rein.skill.*;
+import com.neulab.rein.status.GameStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,21 +11,72 @@ public class Main {
 
     public static void main(String[] args) {
 
+        // initialize skill pool
+        SkillFactory skillFactory = new SkillFactory();
 
-        List<Skill> skills = new ArrayList<>();
-        skills.add(new Attack());
-        skills.add(new DoubleAttack());
-        skills.add(new Encourage());
-        skills.add(new MasterHeal());
-        skills.add(new MasterShell());
-        skills.add(new NaiveHeal());
-        skills.add(new ShadowRaid());
+        List<String> estelleSkillTokens = new ArrayList<String>(){
+            {
+                add("NormalAttack");
+                add("Encourage");
+                add("NaiveHeal");
+                add("MasterHeal");
+                add("MasterShell");
+            }
+        };
+        List<String> joshuaSkillTokens = new ArrayList<String>(){
+            {
+                add("NormalAttack");
+                add("DoubleAttack");
+                add("ShadowRaid");
+            }
+        };
 
-        System.out.println("Hello World");
 
-        skills.stream()
-                .forEach(System.out::println);
+        // TODO: update skills for enemy
+        List<String> leonSkillTokens = new ArrayList<String>(){
+            {
+                add("NormalAttack");
+                add("DoubleAttack");
+                add("ShadowRaid");
+            }
+        };
 
+        Player estelle = new Player(
+                "estelle",
+                "艾丝蒂尔",
+                2000.0,
+                400.0,
+                0.0,
+                200.0,
+                estelleSkillTokens,
+                false);
+        Player joshua = new Player(
+                "joshua",
+                "约修亚",
+                1800.0,
+                0.0,
+                0.0,
+                300.0,
+                joshuaSkillTokens,
+                false);
+        Player leon = new Player(
+                "leon",
+                "剑帝莱维",
+                20000.0,
+                0.0,
+                0.0,
+                500.0,
+                leonSkillTokens,
+                false);
+
+        List<Player> players = new ArrayList<Player>(){
+            {
+                add(estelle);
+                add(joshua);
+                add(leon);
+            }
+        };
+        GameStatus gameStatus = new GameStatus(players);
     }
 
 }
