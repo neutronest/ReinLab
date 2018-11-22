@@ -55,7 +55,7 @@ public class BasicSetup {
                 add("约修亚");
                 add("剑帝莱维");
             }
-        };]
+        };
 
         for (int i=0; i<3; i++) {
             players.add(new Player(
