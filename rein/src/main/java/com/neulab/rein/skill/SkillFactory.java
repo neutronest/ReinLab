@@ -36,30 +36,4 @@ public class SkillFactory implements Serializable {
         }
         return skillCandidates;
     }
-
-    public List<Skill> getAvailableSkillsBySkillTokens(Player caster,
-                                                       List<Player> friendPlayers,
-                                                       List<Player> enemyPlayers) {
-
-        List<String> skillTokens = caster.getSkillTokens();
-        List<Skill> availableSkills = new ArrayList<>();
-        for (String token: skillTokens) {
-
-            Skill skill = this.skillTable.get(token);
-            if (skill == null) {
-                continue;
-            }
-            
-            if (skill.getSkillType() == GameContants.SKILL_TYPE_SINGLE_FOR_ENEMY) {
-                if (skill.isAvailable(caster, enemyPlayers)) {
-                    availableSkills.add(skill);
-                }
-            } else if (skill.getSkillType() == GameContants.SKILL_TYPE_SINGLE_FOR_SELF_FRIENDS) {
-                if (skill.isAvailable(caster, friendPlayers)) {
-                    availableSkills.add(skill);
-                }
-            }
-        }
-        return availableSkills;
-    }
 }

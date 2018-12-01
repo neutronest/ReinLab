@@ -41,32 +41,77 @@ public class GameStatus implements Serializable {
     }
 
     public GameStatus applyRandomAction() {
-        if (this.isTerminated()) {
+
+        GameStatus nextGameStatus = this.deepCopy();
+
+        if (nextGameStatus.isTerminated()) {
             logger.warn(GameContants.EXCEPTION_GAME_IS_TERMINATED);
-            return this;
+            return nextGameStatus;
         }
 
         // get this turn's active player
-        this.playerActionToken = this.getNextTurn();
-        Player activePlayer = this.playerMap.get(this.playerActionToken);
+        this.playerActionToken = nextGameStatus.getNextTurn();
+        Player activePlayer = nextGameStatus.playerMap.get(nextGameStatus.playerActionToken);
         if (activePlayer == null) {
             logger.warn(GameContants.EXCEPTION_NO_CORRESPONDING_PLAYER);
-            return this;
+            return nextGameStatus;
         }
 
         Integer ourTeamId = activePlayer.getTeamId();
-        Integer otherTeamId = ourTeamId == this.firstTeamId ? this.firstTeamId : this.secondTeamId;
+        Integer otherTeamId = ourTeamId == nextGameStatus.firstTeamId ? nextGameStatus.secondTeamId :nextGameStatus.firstTeamId ;
 
-        List<Player> ourTeamPlayers = this.getPlayersByTeamId(ourTeamId);
-        List<Player> otherTeamPlayers = this.getPlayersByTeamId(otherTeamId);
+        List<Player> ourTeamPlayers = nextGameStatus.getPlayersByTeamId(ourTeamId);
+        List<Player> otherTeamPlayers = nextGameStatus.getPlayersByTeamId(otherTeamId);
 
-        List<Skill> skills = this.skillFactory.getAvailableSkillsBySkillTokens(
-            activePlayer,
-            ourTeamPlayers,
-            otherTeamPlayers
-        );
-        // TODO: Dev
-        return this;
+        List<Skill> skillCandidates = nextGameStatus.skillFactory.getCandidateSkillsBySkillTokens(activePlayer.getSkillTokens());
+
+        List<GameAction> gameActionCandidates = nextGameStatus.generateGameActions(activePlayer, ourTeamPlayers, otherTeamPlayers);
+        List<GameAction> availableGameActions = GameAction.getAvailableGameActions(gameActionCandidates);
+
+        if (availableGameActions.size() == 0) {
+            logger.error("No Available Game Actions founded");
+            return nextGameStatus;
+        }
+
+        Random rand = new Random();
+        Integer applyActionId = rand.nextInt(availableGameActions.size());
+        GameAction applyAction = availableGameActions.get(applyActionId);
+        applyAction.apply();
+        return nextGameStatus;
+    }
+
+    public List<GameAction> generateGameActions(Player activePlayer, List<Player> ourTeamPlayers, List<Player> otherTeamPlayers) {
+
+
+        List<Skill> skillCandidates = this.skillFactory.getCandidateSkillsBySkillTokens(activePlayer.getSkillTokens());
+
+        List<GameAction> gameActionCandidates = new ArrayList<>();
+        for (Skill skill: skillCandidates) {
+            
+            if (Objects.equals(skill.getSkillType(), GameContants.SKILL_TYPE_SINGLE_FOR_SELF_FRIENDS)) {
+                for(Player targetPlayer: ourTeamPlayers) {
+                    List<Player> targetPlayers = new ArrayList<>();
+                    targetPlayers.add(targetPlayer);
+                    gameActionCandidates.add(new GameAction(
+                        activePlayer, 
+                        targetPlayers, 
+                        skill));
+                } 
+            } else if (Objects.equals(skill.getSkillType(), GameContants.SKILL_TYPE_MULTI_FOR_SELF_FRIENDS)) {
+                gameActionCandidates.add(new GameAction(activePlayer, ourTeamPlayers, skill));
+
+            } else if (Objects.equals(skill.getSkillType(), GameContants.SKILL_TYPE_SINGLE_FOR_ENEMY)) {
+                for(Player targetPlayer: otherTeamPlayers) {
+                    List<Player> targetPlayers = new ArrayList<>();
+                    targetPlayers.add(targetPlayer);
+                    gameActionCandidates.add(new GameAction(activePlayer, targetPlayers, skill));
+                }
+            } else if (Objects.equals(skill.getSkillType(), GameContants.SKILL_TYPE_MULTI_FOR_ENEMY)) {
+                gameActionCandidates.add(new GameAction(activePlayer, otherTeamPlayers, skill));
+            }
+        }
+        return gameActionCandidates;
+
     }
 
     public List<Player> getPlayersByTeamId(Integer teamId) {
@@ -75,7 +120,7 @@ public class GameStatus implements Serializable {
         for(Map.Entry<String, Player> entry: this.playerMap.entrySet()) {
             String playerName = entry.getKey();
             Player player = entry.getValue();
-            if (player.getTeamId() == teamId) {
+            if (Objects.equals(player.getTeamId(), teamId)) {
                 players.add(player);
             }
         }
@@ -95,7 +140,7 @@ public class GameStatus implements Serializable {
             String playerName = entry.getKey();
             Player player = entry.getValue();
             if (this.playerActionToken.equals(playerName) &&
-                    player.getTeamId() == this.secondTeamId) {
+                    Objects.equals(player.getTeamId(), this.secondTeamId)) {
                 return true;
             }
         }
@@ -117,7 +162,7 @@ public class GameStatus implements Serializable {
         String nextPlayerName = this.actionQueue.peek();
         Boolean isGetNextTurn = false;
         while (isGetNextTurn) {
-            if (this.playerMap.get(nextPlayerName).getState() == GameContants.PLAYER_STATE_DEAD) {
+            if (this.playerMap.get(nextPlayerName).getState().intValue() == GameContants.PLAYER_STATE_DEAD) {
                 curPlayerName = this.actionQueue.remove();
                 this.actionQueue.add(curPlayerName);
                 nextPlayerName = this.actionQueue.peek();
@@ -132,17 +177,37 @@ public class GameStatus implements Serializable {
 
         List<Player> ourAlivePlayers = this.playerMap.values()
                 .stream()
-                .filter( player -> player.getTeamId() == this.firstTeamId && player.getState() == GameContants.PLAYER_STATE_ALIVE)
+                .filter( player -> Objects.equals(player.getTeamId(), this.firstTeamId)
+                        && Objects.equals(player.getState(), GameContants.PLAYER_STATE_ALIVE))
                 .collect(Collectors.toList());
 
         List<Player> enmeyAlivePlayers = this.playerMap.values()
                 .stream()
-                .filter(player -> player.getTeamId() == this.secondTeamId  && player.getState() == GameContants.PLAYER_STATE_ALIVE)
+                .filter(player -> Objects.equals(player.getTeamId(), this.secondTeamId)
+                        && Objects.equals(player.getState(), GameContants.PLAYER_STATE_ALIVE))
                 .collect(Collectors.toList());
 
         if (ourAlivePlayers.size() == 0 || enmeyAlivePlayers.size() == 0) {
             return true;
         }
         return false;
+    }
+
+    public GameStatus deepCopy() {
+
+        GameStatus nextGameStatus = null;
+
+        try {
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            ObjectOutputStream oo = new ObjectOutputStream(bo);
+            oo.writeObject(this);
+
+            ByteArrayInputStream bi=new ByteArrayInputStream(bo.toByteArray());
+            ObjectInputStream oi=new ObjectInputStream(bi);
+            nextGameStatus = (GameStatus)(oi.readObject());
+        } catch (Exception e){
+            logger.error("DeepCopy Failed!!!");
+        }
+        return nextGameStatus;
     }
 }
