@@ -174,6 +174,14 @@ public class Player {
         this.displayName = displayName;
     }
 
+    public void setSkillTokens(List<String> skillTokens) {
+        this.skillTokens = skillTokens;
+    }
+
+    public List<String> getSkillTokens() {
+        return this.skillTokens;
+    }
+
 
 
 //    double getBaseHP();
