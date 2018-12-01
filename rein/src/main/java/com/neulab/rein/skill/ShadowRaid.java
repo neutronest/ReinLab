@@ -10,7 +10,7 @@ public class ShadowRaid implements Skill {
     public static String name = "ShadowRaid";
     public static String displayName = "秘技- 幻影奇袭!";
     private static Double costSP = 100.0;
-    public Integer skillType = GameContants.SKILL_TYPE_FOR_ENEMY;
+    public Integer skillType = GameContants.SKILL_TYPE_MULTI_FOR_ENEMY;
 
 
     @Override
@@ -59,5 +59,10 @@ public class ShadowRaid implements Skill {
     @Override
     public Integer getSkillType() {
         return this.skillType;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return this.displayName;
     }
 }

@@ -11,4 +11,6 @@ public interface Skill {
     public Boolean isAvailable(Player caster, List<Player> targetPlayers);
 
     public Integer getSkillType();
+
+    public String getDisplayName();
 }

@@ -10,7 +10,7 @@ public class DoubleAttack implements Skill {
     public static String name = "DoubleAttack";
     private static String displayName = "双连击";
     private Double costSP = 30.0;
-    public Integer skillType = GameContants.SKILL_TYPE_FOR_ENEMY;
+    public Integer skillType = GameContants.SKILL_TYPE_SINGLE_FOR_ENEMY;
 
     @Override
     public void apply(Player caster, List<Player> targetPlayers) {
@@ -57,6 +57,11 @@ public class DoubleAttack implements Skill {
     @Override
     public Integer getSkillType() {
         return this.skillType;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return this.displayName;
     }
 
 }

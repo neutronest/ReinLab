@@ -9,11 +9,11 @@ import java.util.List;
 
 public class Encourage implements Skill {
 
-    public static String name = "encourage";
+    public static String name = "Encourage";
     public static String displayName = "大家加油啊!";
     private Double costSP = 60.0;
     private Integer maxEffort = 3;
-    public Integer skillType = GameContants.SKILL_TYPE_FOR_SELF_FRIENDS;
+    public Integer skillType = GameContants.SKILL_TYPE_SINGLE_FOR_SELF_FRIENDS;
 
 
     @Override
@@ -51,5 +51,10 @@ public class Encourage implements Skill {
     @Override
     public Integer getSkillType() {
         return this.skillType;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return this.displayName;
     }
 }

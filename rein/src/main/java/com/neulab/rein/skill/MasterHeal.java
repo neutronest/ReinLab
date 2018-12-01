@@ -11,7 +11,7 @@ public class MasterHeal implements Skill {
     public static String displayName = "风之愈";
     private Double costEP = 60.0;
     private Double healHP = 1500.0;
-    public Integer skillType = GameContants.SKILL_TYPE_FOR_SELF_FRIENDS;
+    public Integer skillType = GameContants.SKILL_TYPE_SINGLE_FOR_SELF_FRIENDS;
 
 
 
@@ -53,5 +53,10 @@ public class MasterHeal implements Skill {
     @Override
     public Integer getSkillType() {
         return this.skillType;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return this.displayName;
     }
 }

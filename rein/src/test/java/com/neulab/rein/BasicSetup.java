@@ -1,6 +1,7 @@
 package com.neulab.rein;
 
 import com.neulab.rein.player.Player;
+
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class BasicSetup {
                 add("NaiveHeal");
                 add("MasterHeal");
                 add("MasterShell");
+                add("Encourage");
             }
         };
         List<String> joshuaSkillTokens = new ArrayList<String>(){
@@ -29,6 +31,11 @@ public class BasicSetup {
                 add("NormalAttack");
                 add("DoubleAttack");
                 add("ShadowRaid");
+            }
+        };
+        List<String> leonSkillTokens = new ArrayList<String>() {
+            {
+                add("NormalAttack");
             }
         };
 
@@ -41,35 +48,37 @@ public class BasicSetup {
                 assignATK,
                 estelleSkillTokens,
                 0);
-        List<Player> players = new ArrayList<Player>();
-        List<String> names = new ArrayList<String>(){
-            {
-                add("estelle");
-                add("joshua");
-                add("leon");
-            }
-        };
-        List<String> displayNames = new ArrayList<String>() {
-            {
-                add("艾丝蒂尔");
-                add("约修亚");
-                add("剑帝莱维");
-            }
-        };
+        Player joshua = new Player(
+            "joshua",
+            "约修亚",
+            assignHP,
+            assignEP,
+            assignSP,
+            assignATK,
+            joshuaSkillTokens,
+            0
+        );
 
-        for (int i=0; i<3; i++) {
-            players.add(new Player(
-                    names.get(i),
-                    displayNames.get(i),
-                    assignHP,
-                    assignEP,
-                    assignSP,
-                    assignATK,
-                    joshuaSkillTokens,
-                    0));
-        }
-        Player enemy = players.get(2);
-        enemy.setTeamId(1);
+        Player leon = new Player(
+            "leon",
+            "剑帝莱维",
+            assignHP,
+            assignEP,
+            assignSP,
+            assignATK,
+            joshuaSkillTokens,
+            1
+        );
+        
+        
+        List<Player> players = new ArrayList<Player>(){
+            {
+                add(caster);
+                add(joshua);
+                add(leon);
+            }
+        };
+        
         return new Pair<Player, List<Player>>(caster, players);
     }
 }

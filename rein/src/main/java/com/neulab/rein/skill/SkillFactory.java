@@ -24,6 +24,18 @@ public class SkillFactory {
         this.skillTable.put(ShadowRaid.name, new ShadowRaid());
     }
 
+    public List<Skill> getCandidateSkillsBySkillTokens(List<String> skillTokens ) {
+        List<Skill> skillCandidates = new ArrayList<>();
+        for (String token: skillTokens) {
+            Skill skill = this.skillTable.get(token);
+            if (skill == null) {
+                continue;
+            }
+            skillCandidates.add(skill);
+        }
+        return skillCandidates;
+    }
+
     public List<Skill> getAvailableSkillsBySkillTokens(Player caster,
                                                        List<Player> friendPlayers,
                                                        List<Player> enemyPlayers) {
@@ -33,16 +45,15 @@ public class SkillFactory {
         for (String token: skillTokens) {
 
             Skill skill = this.skillTable.get(token);
-            // TODO: not a good logic to fix skill's usedFor to teamID
             if (skill == null) {
                 continue;
             }
             
-            if (skill.getSkillType() == GameContants.SKILL_TYPE_FOR_ENEMY) {
+            if (skill.getSkillType() == GameContants.SKILL_TYPE_SINGLE_FOR_ENEMY) {
                 if (skill.isAvailable(caster, enemyPlayers)) {
                     availableSkills.add(skill);
                 }
-            } else if (skill.getSkillType() == GameContants.SKILL_TYPE_FOR_SELF_FRIENDS) {
+            } else if (skill.getSkillType() == GameContants.SKILL_TYPE_SINGLE_FOR_SELF_FRIENDS) {
                 if (skill.isAvailable(caster, friendPlayers)) {
                     availableSkills.add(skill);
                 }

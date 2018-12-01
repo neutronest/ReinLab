@@ -15,7 +15,7 @@ public class Attack implements Skill {
     public static String name = "NormalAttack";
     public static String displayName = "普通攻击";
 
-    public Integer skillType = GameContants.SKILL_TYPE_FOR_ENEMY;
+    public Integer skillType = GameContants.SKILL_TYPE_SINGLE_FOR_ENEMY;
 
     @Override
     public void apply(Player caster, List<Player> targetPlayers) {
@@ -55,6 +55,11 @@ public class Attack implements Skill {
     @Override
     public Integer getSkillType() {
         return this.skillType;
+    }
+    
+    @Override
+    public String getDisplayName() {
+        return this.displayName;
     }
 
 }

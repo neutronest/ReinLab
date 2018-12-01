@@ -51,6 +51,7 @@ public class Player {
         this.shell = 0;
         this.encourage = 0;
         this.state = GameContants.PLAYER_STATE_ALIVE;
+        this.skillTokens = skillTokens;
         this.teamId = teamId;
     }
 
