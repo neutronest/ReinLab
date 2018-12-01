@@ -40,7 +40,7 @@ public class BasicSetup {
                 assignSP,
                 assignATK,
                 estelleSkillTokens,
-                false);
+                0);
         List<Player> players = new ArrayList<Player>();
         List<String> names = new ArrayList<String>(){
             {
@@ -66,8 +66,10 @@ public class BasicSetup {
                     assignSP,
                     assignATK,
                     joshuaSkillTokens,
-                    false));
+                    0));
         }
+        Player enemy = players.get(2);
+        enemy.setTeamId(1);
         return new Pair<Player, List<Player>>(caster, players);
     }
 }

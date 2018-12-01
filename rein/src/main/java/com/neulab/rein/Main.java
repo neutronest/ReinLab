@@ -49,7 +49,7 @@ public class Main {
                 0.0,
                 200.0,
                 estelleSkillTokens,
-                false);
+                0);
         Player joshua = new Player(
                 "joshua",
                 "约修亚",
@@ -58,7 +58,7 @@ public class Main {
                 0.0,
                 300.0,
                 joshuaSkillTokens,
-                false);
+                0);
         Player leon = new Player(
                 "leon",
                 "剑帝莱维",
@@ -67,7 +67,7 @@ public class Main {
                 0.0,
                 500.0,
                 leonSkillTokens,
-                false);
+                1);
 
         List<Player> players = new ArrayList<Player>(){
             {
@@ -76,7 +76,7 @@ public class Main {
                 add(leon);
             }
         };
-        GameStatus gameStatus = new GameStatus(players);
+        //GameStatus gameStatus = new GameStatus(players);
     }
 
 }

@@ -27,7 +27,7 @@ public class Player {
     private Integer state;
 
     private List<String> skillTokens;
-    private Boolean isEnemy;
+    private Integer teamId;
 
     public Player(
             String name,
@@ -37,7 +37,7 @@ public class Player {
             Double baseSP,
             Double baseATK,
             List<String> skillTokens,
-            Boolean isEnemy) {
+            Integer teamId) {
         this.name = name;
         this.displayName = displayName;
         this.baseHP = baseHP;
@@ -51,7 +51,7 @@ public class Player {
         this.shell = 0;
         this.encourage = 0;
         this.state = GameContants.PLAYER_STATE_ALIVE;
-        this.isEnemy = isEnemy;
+        this.teamId = teamId;
     }
 
     public Integer getState() {
@@ -150,12 +150,12 @@ public class Player {
     }
 
 
-    public Boolean getIsEnemy() {
-        return isEnemy;
+    public Integer getTeamId() {
+        return this.teamId;
     }
 
-    public void setIsEnemy(Boolean enemy) {
-        isEnemy = enemy;
+    public void setTeamId(Integer teamId) {
+        this.teamId = teamId;
     }
 
     public String getName() {
