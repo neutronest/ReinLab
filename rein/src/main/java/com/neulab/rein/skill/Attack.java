@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.neulab.rein.player.Player;
+import com.neulab.rein.utils.GameContants;
+
 import java.util.List;
 
 public class Attack implements Skill {
@@ -12,6 +14,8 @@ public class Attack implements Skill {
 
     public static String name = "NormalAttack";
     public static String displayName = "普通攻击";
+
+    public Integer skillType = GameContants.SKILL_TYPE_FOR_ENEMY;
 
     @Override
     public void apply(Player caster, List<Player> targetPlayers) {
@@ -46,6 +50,11 @@ public class Attack implements Skill {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    @Override
+    public Integer getSkillType() {
+        return this.skillType;
     }
 
 }

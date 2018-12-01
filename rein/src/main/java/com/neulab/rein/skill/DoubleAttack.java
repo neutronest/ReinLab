@@ -1,6 +1,7 @@
 package com.neulab.rein.skill;
 
 import com.neulab.rein.player.Player;
+import com.neulab.rein.utils.GameContants;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ public class DoubleAttack implements Skill {
     public static String name = "DoubleAttack";
     private static String displayName = "双连击";
     private Double costSP = 30.0;
+    public Integer skillType = GameContants.SKILL_TYPE_FOR_ENEMY;
 
     @Override
     public void apply(Player caster, List<Player> targetPlayers) {
@@ -50,6 +52,11 @@ public class DoubleAttack implements Skill {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    @Override
+    public Integer getSkillType() {
+        return this.skillType;
     }
 
 }

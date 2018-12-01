@@ -2,6 +2,7 @@ package com.neulab.rein.skill;
 
 
 import com.neulab.rein.player.Player;
+import com.neulab.rein.utils.GameContants;
 
 import java.util.ArrayList;
 import java.util.HashMap;

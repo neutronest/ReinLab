@@ -10,7 +10,7 @@ public class NaiveHeal implements Skill {
     public static String displayName = "小回复";
     private Double costEP = 30.0;
     private Double healHP = 1200.0;
-
+    public Integer skillType = GameContants.SKILL_TYPE_FOR_SELF_FRIENDS;
 
     @Override
     public void apply(Player caster, List<Player> targetPlayers) {
@@ -52,5 +52,10 @@ public class NaiveHeal implements Skill {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    @Override
+    public Integer getSkillType() {
+        return this.skillType;
     }
 }

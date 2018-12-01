@@ -13,6 +13,8 @@ public class Encourage implements Skill {
     public static String displayName = "大家加油啊!";
     private Double costSP = 60.0;
     private Integer maxEffort = 3;
+    public Integer skillType = GameContants.SKILL_TYPE_FOR_SELF_FRIENDS;
+
 
     @Override
     public void apply(Player caster, List<Player> targetPlayers) {
@@ -44,5 +46,10 @@ public class Encourage implements Skill {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    @Override
+    public Integer getSkillType() {
+        return this.skillType;
     }
 }
