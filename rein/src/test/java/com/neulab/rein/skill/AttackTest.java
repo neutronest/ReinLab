@@ -11,7 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.ArrayList;
-import static com.neulab.rein.skill.BasicSetup.getAssignPlayers;
+import static com.neulab.rein.BasicSetup.getAssignPlayers;
 
 public class AttackTest {
 

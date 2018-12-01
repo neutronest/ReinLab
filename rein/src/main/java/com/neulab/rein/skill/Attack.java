@@ -16,6 +16,7 @@ public class Attack implements Skill {
     @Override
     public void apply(Player caster, List<Player> targetPlayers) {
 
+        
         if (targetPlayers == null) {
             logger.error("players must not been null!");
         }

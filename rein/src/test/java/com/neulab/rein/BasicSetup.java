@@ -1,4 +1,4 @@
-package com.neulab.rein.skill;
+package com.neulab.rein;
 
 import com.neulab.rein.player.Player;
 import javafx.util.Pair;

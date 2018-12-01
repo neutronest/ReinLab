@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.neulab.rein.skill.BasicSetup.getAssignPlayers;
+import static com.neulab.rein.BasicSetup.getAssignPlayers;
 
 public class DoubleAttackTest {
 

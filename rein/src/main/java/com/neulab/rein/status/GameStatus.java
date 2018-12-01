@@ -13,7 +13,7 @@ public class GameStatus {
     public String playerActionToken = "";
     public Queue<String> actionQueue = new ArrayDeque<>();
 
-
+    
 
     public GameStatus(List<Player> players) {
 
@@ -29,6 +29,8 @@ public class GameStatus {
 
     public GameStatus generateNextGameStatus() {
 
+        this.playerActionToken = this.getNextTurn();
+        
         return this;
     }
 
