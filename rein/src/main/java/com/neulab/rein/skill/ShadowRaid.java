@@ -3,9 +3,10 @@ package com.neulab.rein.skill;
 import com.neulab.rein.player.Player;
 import com.neulab.rein.utils.GameContants;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ShadowRaid implements Skill {
+public class ShadowRaid implements Skill, Serializable {
 
     public static String name = "ShadowRaid";
     public static String displayName = "秘技- 幻影奇袭!";

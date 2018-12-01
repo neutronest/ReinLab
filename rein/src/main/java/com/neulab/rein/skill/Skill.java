@@ -2,6 +2,7 @@ package com.neulab.rein.skill;
 
 import com.neulab.rein.player.Player;
 
+import java.io.Serializable;
 import java.util.List;
 
 public interface Skill {

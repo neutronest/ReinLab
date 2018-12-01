@@ -3,9 +3,10 @@ package com.neulab.rein.skill;
 import com.neulab.rein.player.Player;
 import com.neulab.rein.utils.GameContants;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MasterHeal implements Skill {
+public class MasterHeal implements Skill, Serializable {
 
     public static String name = "MasterHeal";
     public static String displayName = "风之愈";

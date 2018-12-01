@@ -4,12 +4,13 @@ package com.neulab.rein.skill;
 import com.neulab.rein.player.Player;
 import com.neulab.rein.utils.GameContants;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SkillFactory {
+public class SkillFactory implements Serializable {
 
     private Map<String, Skill> skillTable = new HashMap<>();
 

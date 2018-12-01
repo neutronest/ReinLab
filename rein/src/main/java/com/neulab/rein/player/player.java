@@ -2,10 +2,10 @@ package com.neulab.rein.player;
 
 import com.neulab.rein.utils.GameContants;
 
-import java.util.GregorianCalendar;
+import java.io.Serializable;
 import java.util.List;
 
-public class Player {
+public class Player implements Serializable {
 
     private String name;
     private String displayName;

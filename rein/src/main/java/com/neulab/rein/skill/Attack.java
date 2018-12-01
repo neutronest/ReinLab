@@ -6,9 +6,10 @@ import org.slf4j.LoggerFactory;
 import com.neulab.rein.player.Player;
 import com.neulab.rein.utils.GameContants;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Attack implements Skill {
+public class Attack implements Skill, Serializable {
 
     private static Logger logger = LoggerFactory.getLogger(Attack.class);
 

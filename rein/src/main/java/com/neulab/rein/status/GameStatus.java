@@ -5,13 +5,14 @@ import com.neulab.rein.skill.Skill;
 import com.neulab.rein.skill.SkillFactory;
 import com.neulab.rein.utils.GameContants;
 
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class GameStatus {
+public class GameStatus implements Serializable {
 
     private static Logger logger = LoggerFactory.getLogger(GameStatus.class);
 

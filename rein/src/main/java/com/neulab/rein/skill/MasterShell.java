@@ -3,9 +3,10 @@ package com.neulab.rein.skill;
 import com.neulab.rein.player.Player;
 import com.neulab.rein.utils.GameContants;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MasterShell implements Skill {
+public class MasterShell implements Skill, Serializable {
 
     public static String name = "MasterShell";
     public static String displayName = "大地之墙";

@@ -3,9 +3,10 @@ package com.neulab.rein.skill;
 import com.neulab.rein.player.Player;
 import com.neulab.rein.utils.GameContants;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class DoubleAttack implements Skill {
+public class DoubleAttack implements Skill, Serializable {
 
     public static String name = "DoubleAttack";
     private static String displayName = "双连击";

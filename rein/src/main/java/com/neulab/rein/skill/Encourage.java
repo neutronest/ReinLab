@@ -5,9 +5,10 @@ import com.neulab.rein.utils.GameContants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Encourage implements Skill {
+public class Encourage implements Skill, Serializable {
 
     public static String name = "Encourage";
     public static String displayName = "大家加油啊!";

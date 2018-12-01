@@ -2,9 +2,11 @@ package com.neulab.rein.skill;
 
 import com.neulab.rein.player.Player;
 import com.neulab.rein.utils.GameContants;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class NaiveHeal implements Skill {
+public class NaiveHeal implements Skill, Serializable {
 
     public static String name = "NaiveHeal";
     public static String displayName = "小回复";
