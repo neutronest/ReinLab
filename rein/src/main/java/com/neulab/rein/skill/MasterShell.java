@@ -11,7 +11,7 @@ public class MasterShell implements Skill, Serializable {
     public static String name = "MasterShell";
     public static String displayName = "大地之墙";
     private Double costEP = 80.0;
-    public Integer skillType = GameContants.SKILL_TYPE_SINGLE_FOR_SELF_FRIENDS;
+    public Integer skillType = GameContants.SKILL_TYPE_MULTI_FOR_SELF_FRIENDS;
 
 
 

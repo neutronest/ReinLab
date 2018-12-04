@@ -25,14 +25,24 @@ public class DoubleAttack implements Skill, Serializable {
         Double casterCurSP = caster.getCurSP();
         caster.setCurSP(casterCurSP - this.costSP);
 
+        // check if target has a shell
         Integer shellValue = targetPlayer.getShell();
         if (shellValue > 0) {
             targetPlayer.setShell(shellValue-1);
             return;
         }
 
+
         Double targetPlayerCurHP = targetPlayer.getCurHP();
-        targetPlayer.setCurHP(Math.max(0, targetPlayerCurHP - 2 * caster.getCurATK()));
+        if (caster.getEncourage() == 0) {
+            targetPlayer.setCurHP(Math.max(targetPlayerCurHP - caster.getCurATK() * 2, 0));
+        } else {
+            targetPlayer.setCurHP(Math.max(targetPlayerCurHP - caster.getCurATK() * 3, 0));
+            caster.setEncourage(caster.getEncourage() - 1);
+        }
+        caster.setCurSP(Math.min(200.0, caster.getCurSP() - 10.0));
+        targetPlayer.setCurSP(Math.min(200.0, targetPlayer.getCurSP() + 10.0));
+
         return;
 
     }

@@ -14,7 +14,7 @@ public class Encourage implements Skill, Serializable {
     public static String displayName = "大家加油啊!";
     private Double costSP = 60.0;
     private Integer maxEffort = 3;
-    public Integer skillType = GameContants.SKILL_TYPE_SINGLE_FOR_SELF_FRIENDS;
+    public Integer skillType = GameContants.SKILL_TYPE_MULTI_FOR_SELF_FRIENDS;
 
 
     @Override

@@ -32,6 +32,7 @@ public class Attack implements Skill, Serializable {
 
         Player targetPlayer = targetPlayers.get(0);
 
+        // check if target has a shell
         Integer targetPlayerShell = targetPlayer.getShell();
         if (targetPlayerShell > 0) {
             targetPlayer.setShell(targetPlayerShell-1);
@@ -39,7 +40,14 @@ public class Attack implements Skill, Serializable {
         }
 
         Double targetPlayerCurHP = targetPlayer.getCurHP();
-        targetPlayer.setCurHP(Math.max(targetPlayerCurHP - caster.getCurATK(), 0));
+        if (caster.getEncourage() == 0) {
+            targetPlayer.setCurHP(Math.max(targetPlayerCurHP - caster.getCurATK(), 0));
+        } else {
+            targetPlayer.setCurHP(Math.max(targetPlayerCurHP - caster.getCurATK() * 1.5, 0));
+            caster.setEncourage(caster.getEncourage()-1);
+        }
+        caster.setCurSP(Math.min(200.0, caster.getCurSP() + 10.0));
+        targetPlayer.setCurSP(Math.min(200.0, targetPlayer.getCurSP() + 10.0));
         return;
     }
 
