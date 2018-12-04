@@ -4,12 +4,16 @@ import com.neulab.rein.player.Player;
 import com.neulab.rein.skill.*;
 import com.neulab.rein.status.GameStatus;
 import javafx.util.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
+
+    private static Logger logger = LoggerFactory.getLogger(Main.class);
 
 
     public static void main(String[] args) throws InterruptedException {
@@ -48,19 +52,19 @@ public class Main {
         Player caster = new Player(
                 "estelle",
                 "艾丝蒂尔",
-                assignHP,
-                assignEP,
-                assignSP,
-                assignATK,
+                2000.0,
+                200.0,
+                0.0,
+                200.0,
                 estelleSkillTokens,
                 0);
         Player joshua = new Player(
                 "joshua",
                 "约修亚",
-                assignHP,
-                assignEP,
-                assignSP,
-                assignATK,
+                1800.0,
+                0.0,
+                0.0,
+                300.0,
                 joshuaSkillTokens,
                 0
         );
@@ -68,11 +72,11 @@ public class Main {
         Player leon = new Player(
                 "leon",
                 "剑帝莱维",
-                12000.0,
+                20000.0,
                 assignEP,
                 assignSP,
-                assignATK,
-                joshuaSkillTokens,
+                500.0,
+                leonSkillTokens,
                 1
         );
 
@@ -92,6 +96,7 @@ public class Main {
         GameStatus nextGameStatus = gameStatus.applyRandomAction();
         while(!nextGameStatus.isTerminated()) {
             nextGameStatus = nextGameStatus.applyRandomAction();
+            System.out.println(nextGameStatus.repr());
             Thread.sleep(100);
         }
         //GameStatus gameStatus = new GameStatus(players);

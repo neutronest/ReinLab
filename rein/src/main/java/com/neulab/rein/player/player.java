@@ -55,6 +55,14 @@ public class Player implements Serializable {
         this.teamId = teamId;
     }
 
+    public String repr() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(String.format("%s, %.1f/%.1f/%.1f, Shell:%d, Encourage:%d",
+                this.displayName, this.getCurHP(), this.getCurEP(), this.getCurSP(),
+                this.getShell(), this.getEncourage()));
+        return sb.toString();
+    }
+
     public Integer getState() {
         return state;
     }

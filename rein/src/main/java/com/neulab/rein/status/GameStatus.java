@@ -222,4 +222,16 @@ public class GameStatus implements Serializable {
         }
         return nextGameStatus;
     }
+
+    public String repr() {
+
+        StringBuffer sb = new StringBuffer();
+        for(Map.Entry<String, Player> entry: this.playerMap.entrySet()) {
+
+            Player player = entry.getValue();
+            sb.append(player.repr());
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
 }
