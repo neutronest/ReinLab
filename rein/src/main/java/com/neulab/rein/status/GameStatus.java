@@ -50,7 +50,6 @@ public class GameStatus implements Serializable {
         }
 
         // get this turn's active player
-        this.playerActionToken = nextGameStatus.getNextTurn();
         Player activePlayer = nextGameStatus.playerMap.get(nextGameStatus.playerActionToken);
         if (activePlayer == null) {
             logger.warn(GameContants.EXCEPTION_NO_CORRESPONDING_PLAYER);
@@ -77,6 +76,8 @@ public class GameStatus implements Serializable {
         Integer applyActionId = rand.nextInt(availableGameActions.size());
         GameAction applyAction = availableGameActions.get(applyActionId);
         applyAction.apply();
+        nextGameStatus.updatePlayerState();
+        nextGameStatus.playerActionToken = nextGameStatus.getNextTurn();
         return nextGameStatus;
     }
 
@@ -88,7 +89,7 @@ public class GameStatus implements Serializable {
         List<GameAction> gameActionCandidates = new ArrayList<>();
         for (Skill skill: skillCandidates) {
             
-            if (Objects.equals(skill.getSkillType(), GameContants.SKILL_TYPE_SINGLE_FOR_SELF_FRIENDS)) {
+            if (skill.getSkillType().intValue() == GameContants.SKILL_TYPE_SINGLE_FOR_SELF_FRIENDS) {
                 for(Player targetPlayer: ourTeamPlayers) {
                     List<Player> targetPlayers = new ArrayList<>();
                     targetPlayers.add(targetPlayer);
@@ -97,7 +98,7 @@ public class GameStatus implements Serializable {
                         targetPlayers, 
                         skill));
                 } 
-            } else if (Objects.equals(skill.getSkillType(), GameContants.SKILL_TYPE_MULTI_FOR_SELF_FRIENDS)) {
+            } else if (skill.getSkillType().intValue() == GameContants.SKILL_TYPE_MULTI_FOR_SELF_FRIENDS) {
                 gameActionCandidates.add(new GameAction(activePlayer, ourTeamPlayers, skill));
 
             } else if (Objects.equals(skill.getSkillType(), GameContants.SKILL_TYPE_SINGLE_FOR_ENEMY)) {
@@ -106,7 +107,7 @@ public class GameStatus implements Serializable {
                     targetPlayers.add(targetPlayer);
                     gameActionCandidates.add(new GameAction(activePlayer, targetPlayers, skill));
                 }
-            } else if (Objects.equals(skill.getSkillType(), GameContants.SKILL_TYPE_MULTI_FOR_ENEMY)) {
+            } else if (skill.getSkillType().intValue() == GameContants.SKILL_TYPE_MULTI_FOR_ENEMY) {
                 gameActionCandidates.add(new GameAction(activePlayer, otherTeamPlayers, skill));
             }
         }
@@ -161,7 +162,7 @@ public class GameStatus implements Serializable {
 
         String nextPlayerName = this.actionQueue.peek();
         Boolean isGetNextTurn = false;
-        while (isGetNextTurn) {
+        while (!isGetNextTurn) {
             if (this.playerMap.get(nextPlayerName).getState().intValue() == GameContants.PLAYER_STATE_DEAD) {
                 curPlayerName = this.actionQueue.remove();
                 this.actionQueue.add(curPlayerName);
@@ -191,6 +192,17 @@ public class GameStatus implements Serializable {
             return true;
         }
         return false;
+    }
+
+    public void updatePlayerState() {
+        for(Map.Entry<String, Player> entry: this.playerMap.entrySet()) {
+
+            String playerName = entry.getKey();
+            Player player = entry.getValue();
+            if (player.getCurHP() <= 0) {
+                player.setState(GameContants.PLAYER_STATE_DEAD);
+            }
+        }
     }
 
     public GameStatus deepCopy() {

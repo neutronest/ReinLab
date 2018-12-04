@@ -2,6 +2,8 @@ package com.neulab.rein;
 
 import com.neulab.rein.player.Player;
 
+import com.neulab.rein.skill.SkillFactory;
+import com.neulab.rein.status.GameStatus;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -81,4 +83,17 @@ public class BasicSetup {
         
         return new Pair<Player, List<Player>>(caster, players);
     }
+
+    public static GameStatus getGameStatus() {
+        Pair<Player, List<Player>> playerPair = getAssignPlayers();
+        Player caster = playerPair.getKey();
+        caster.setCurSP(100.0);
+        List<Player> players = playerPair.getValue();
+
+        SkillFactory skillFactory = new SkillFactory();
+
+        GameStatus gameStatus = new GameStatus(players, skillFactory, 0, 1);
+        return gameStatus;
+    }
+
 }

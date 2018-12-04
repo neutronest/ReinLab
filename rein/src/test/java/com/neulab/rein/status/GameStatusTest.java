@@ -13,6 +13,7 @@ import javafx.util.Pair;
 import com.neulab.rein.BasicSetup;
 import com.neulab.rein.skill.SkillFactory;
 import static com.neulab.rein.BasicSetup.getAssignPlayers;
+import static com.neulab.rein.BasicSetup.getGameStatus;
 
 public class GameStatusTest {
     
@@ -63,16 +64,28 @@ public class GameStatusTest {
 
     @Test
     public void ShouldApplyRandomAction() {
-        Pair<Player, List<Player>> playerPair = getAssignPlayers();
-        Player caster = playerPair.getKey();
-        caster.setCurSP(100.0);
-        List<Player> players = playerPair.getValue();
-
-        SkillFactory skillFactory = new SkillFactory();
-
-        GameStatus gameStatus = new GameStatus(players, skillFactory, 0, 1);
+        GameStatus gameStatus = getGameStatus();
         GameStatus nextGameStatus = gameStatus.applyRandomAction();
         logger.debug("....");
+    }
+
+    @Test
+    public void ShouldGetNextTurn() {
+
+        GameStatus gameStatus = getGameStatus();
+
+        List<String> playerNames = new ArrayList<>();
+        for (int i=0; i<3; i++) {
+            playerNames.add(gameStatus.getNextTurn());
+        }
+        logger.info("TestNextTurn: " + String.join(" ", playerNames));
+        Assert.assertEquals(
+                new ArrayList<String>(){{
+                    add("joshua");
+                    add("leon");
+                    add("estelle");
+                }}, playerNames
+        );
 
     }
 }
