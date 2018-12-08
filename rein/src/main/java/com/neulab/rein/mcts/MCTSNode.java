@@ -22,6 +22,11 @@ public class MCTSNode {
     }
 
     public Boolean isAllExpanded() {
+
+        Integer availableGameActionCount = this.gameStatus.getAvailableGameActions().size();
+        if (availableGameActionCount.intValue() == this.children.size()) {
+            return true;
+        }
         return false;
     }
 
@@ -29,12 +34,18 @@ public class MCTSNode {
         return null;
     }
 
-    public MCTSNode getBestChild() {
+    public MCTSNode getBestChild(Integer isExploration) {
+        
         return null;
     }
 
     public Double defaultPolicy() {
-        return 0.0;
+        
+        GameStatus currentGameStatus = this.gameStatus;
+        while (currentGameStatus.isTerminated() != true) {
+            currentGameStatus = currentGameStatus.applyRandomAction();
+        }
+        return currentGameStatus.getReward();
     }
 
     public MCTSNode treePolicy() {

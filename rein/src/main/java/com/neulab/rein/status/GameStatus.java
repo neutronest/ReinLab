@@ -57,16 +57,7 @@ public class GameStatus implements Serializable {
             return nextGameStatus;
         }
 
-        Integer ourTeamId = activePlayer.getTeamId();
-        Integer otherTeamId = ourTeamId == nextGameStatus.firstTeamId ? nextGameStatus.secondTeamId :nextGameStatus.firstTeamId ;
-
-        List<Player> ourTeamPlayers = nextGameStatus.getPlayersByTeamId(ourTeamId);
-        List<Player> otherTeamPlayers = nextGameStatus.getPlayersByTeamId(otherTeamId);
-
-        List<Skill> skillCandidates = nextGameStatus.skillFactory.getCandidateSkillsBySkillTokens(activePlayer.getSkillTokens());
-
-        List<GameAction> gameActionCandidates = nextGameStatus.generateGameActions(activePlayer, ourTeamPlayers, otherTeamPlayers);
-        List<GameAction> availableGameActions = GameAction.getAvailableGameActions(gameActionCandidates);
+        List<GameAction> availableGameActions = nextGameStatus.getAvailableGameActions();
 
         if (availableGameActions.size() == 0) {
             logger.error("No Available Game Actions founded");
@@ -116,7 +107,7 @@ public class GameStatus implements Serializable {
         return gameActionCandidates;
     }
 
-    public List<GameAction> getAvailablGameActions() {
+    public List<GameAction> getAvailableGameActions() {
         Player activePlayer = this.playerMap.get(this.playerActionToken);
         Integer ourTeamId = activePlayer.getTeamId();
         Integer otherTeamId = ourTeamId == this.firstTeamId ? this.secondTeamId :this.firstTeamId ;
@@ -143,14 +134,7 @@ public class GameStatus implements Serializable {
         }
         return players;
     }
-
-    public GameStatus generateNextGameStatus() {
-
-        this.playerActionToken = this.getNextTurn();
-        
-        return this;
-    }
-
+    
     public Boolean isEnemyTurn() {
 
         for(Map.Entry<String, Player> entry: this.playerMap.entrySet()) {
@@ -168,7 +152,15 @@ public class GameStatus implements Serializable {
         return "";
     }
 
-    public Double getReward() {return 0.0; }
+    public Double getReward() {
+        List<Player> otherTeamPlayers = this.getPlayersByTeamId(this.secondTeamId);
+        Double lastHP = otherTeamPlayers
+            .stream()
+            .map(player -> player.getCurHP())
+            .mapToDouble(Double::doubleValue)
+            .sum();
+        return -1.0 * Math.abs(0 - lastHP / 10000.0); 
+    }
 
     public String getNextTurn() {
 
