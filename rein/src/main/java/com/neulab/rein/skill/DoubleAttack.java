@@ -75,4 +75,9 @@ public class DoubleAttack implements Skill, Serializable {
         return this.displayName;
     }
 
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
 }

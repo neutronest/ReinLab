@@ -59,4 +59,9 @@ public class MasterShell implements Skill, Serializable {
     public String getDisplayName() {
         return this.displayName;
     }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
 }

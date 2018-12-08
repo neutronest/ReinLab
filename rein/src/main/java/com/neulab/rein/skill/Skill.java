@@ -13,5 +13,7 @@ public interface Skill {
 
     public Integer getSkillType();
 
+    public String getName();
+
     public String getDisplayName();
 }
