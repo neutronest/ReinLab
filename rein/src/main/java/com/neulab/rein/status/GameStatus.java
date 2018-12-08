@@ -20,6 +20,7 @@ public class GameStatus implements Serializable {
     public String playerActionToken = "";
     public Queue<String> actionQueue = new ArrayDeque<>();
     public SkillFactory skillFactory = null;
+    public String applyActionName = "";
 
     public Integer firstTeamId = -1;
     public Integer secondTeamId = -1;
@@ -76,6 +77,7 @@ public class GameStatus implements Serializable {
         Integer applyActionId = rand.nextInt(availableGameActions.size());
         GameAction applyAction = availableGameActions.get(applyActionId);
         applyAction.apply();
+        nextGameStatus.applyActionName = applyAction.applySkill.getName();
         nextGameStatus.updatePlayerState();
         nextGameStatus.playerActionToken = nextGameStatus.getNextTurn();
         return nextGameStatus;
@@ -112,7 +114,21 @@ public class GameStatus implements Serializable {
             }
         }
         return gameActionCandidates;
+    }
 
+    public List<GameAction> getAvailablGameActions() {
+        Player activePlayer = this.playerMap.get(this.playerActionToken);
+        Integer ourTeamId = activePlayer.getTeamId();
+        Integer otherTeamId = ourTeamId == this.firstTeamId ? this.secondTeamId :this.firstTeamId ;
+
+        List<Player> ourTeamPlayers = this.getPlayersByTeamId(ourTeamId);
+        List<Player> otherTeamPlayers = this.getPlayersByTeamId(otherTeamId);
+
+        List<Skill> skillCandidates = this.skillFactory.getCandidateSkillsBySkillTokens(activePlayer.getSkillTokens());
+
+        List<GameAction> gameActionCandidates = this.generateGameActions(activePlayer, ourTeamPlayers, otherTeamPlayers);
+        List<GameAction> availableGameActions = GameAction.getAvailableGameActions(gameActionCandidates);
+        return availableGameActions;
     }
 
     public List<Player> getPlayersByTeamId(Integer teamId) {
