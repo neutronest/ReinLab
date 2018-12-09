@@ -27,10 +27,10 @@ public class GameAction implements Serializable {
 
     public String getName() {
         StringBuffer sb = new StringBuffer();
-        sb.append(this.caster.getName());
-        sb.append("@@");
+        sb.append(String.format("Caster: %s", this.caster.getName()));
+        sb.append("@@ Targets: [");
         sb.append(String.join("@@", targetPlayers.stream().map(player -> player.getName()).collect(Collectors.toList())));
-        sb.append("@@");
+        sb.append("] @@ Skill: ");
         sb.append(applySkill.getName());
         return sb.toString();
     }

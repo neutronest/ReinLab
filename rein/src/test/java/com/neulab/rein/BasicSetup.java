@@ -183,16 +183,16 @@ public class BasicSetup {
     public static MCTSNode getAllExpandedMCTSNode() {
         GameStatus gameStatus = getGameStatus();
         MCTSNode mctsNode = new MCTSNode();
+        mctsNode.gameStatus = gameStatus;
         List<GameAction> availableGameActions = gameStatus.getAvailableGameActions();
         for (GameAction gameAction: availableGameActions) {
-            logger.debug(gameAction.getName());
+            logger.warn(gameAction.getName());
             GameStatus nextGameStatus = gameStatus.applySpecialAction(gameAction);
             MCTSNode childNode = new MCTSNode();
             childNode.gameStatus = nextGameStatus;
             childNode.parent = mctsNode;
             mctsNode.children.add(childNode);
         }
-
         return mctsNode;
     }
 
