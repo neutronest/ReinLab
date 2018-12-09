@@ -109,8 +109,12 @@ public class GameStatus implements Serializable {
             logger.warn("Illegaled gameAction apply...");
             return this;
         }
-
-        appliedGameAction.apply();
+        for (GameAction gameAction : availableGameActions) {
+            if (gameAction.getName().equals(appliedGameAction.getName())) {
+                gameAction.apply();
+                continue;
+            }
+        }
         nextGameStatus.applyActionName = appliedGameAction.getName();
         nextGameStatus.updatePlayerState();
         nextGameStatus.playerActionToken = nextGameStatus.getNextTurn();
