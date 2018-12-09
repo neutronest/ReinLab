@@ -68,10 +68,51 @@ public class GameStatus implements Serializable {
         Integer applyActionId = rand.nextInt(availableGameActions.size());
         GameAction applyAction = availableGameActions.get(applyActionId);
         applyAction.apply();
-        nextGameStatus.applyActionName = applyAction.applySkill.getName();
+        nextGameStatus.applyActionName = applyAction.getName();
         nextGameStatus.updatePlayerState();
         nextGameStatus.playerActionToken = nextGameStatus.getNextTurn();
         return nextGameStatus;
+    }
+
+    public GameStatus applySpecialAction(GameAction appliedGameAction) {
+
+        // TODO
+        // Duplicate codes.. Need to refactor
+        GameStatus nextGameStatus = this.deepCopy();
+
+        if (nextGameStatus.isTerminated()) {
+            logger.warn(GameContants.EXCEPTION_GAME_IS_TERMINATED);
+            return nextGameStatus;
+        }
+
+        // get this turn's active player
+        Player activePlayer = nextGameStatus.playerMap.get(nextGameStatus.playerActionToken);
+        if (activePlayer == null) {
+            logger.warn(GameContants.EXCEPTION_NO_CORRESPONDING_PLAYER);
+            return nextGameStatus;
+        }
+
+        List<GameAction> availableGameActions = nextGameStatus.getAvailableGameActions();
+
+        if (availableGameActions.size() == 0) {
+            logger.error("No Available Game Actions founded");
+            return nextGameStatus;
+        }
+        List<String> availableGameActionNames = availableGameActions
+            .stream()
+            .map(gameAction -> gameAction.getName())
+            .collect(Collectors.toList());
+        if (availableGameActionNames.contains(appliedGameAction.getName()) == false) {
+            logger.warn("Illegaled gameAction apply...");
+            return this;
+        }
+
+        appliedGameAction.apply();
+        nextGameStatus.applyActionName = appliedGameAction.getName();
+        nextGameStatus.updatePlayerState();
+        nextGameStatus.playerActionToken = nextGameStatus.getNextTurn();
+        return nextGameStatus;
+
     }
 
     public List<GameAction> generateGameActions(Player activePlayer, List<Player> ourTeamPlayers, List<Player> otherTeamPlayers) {

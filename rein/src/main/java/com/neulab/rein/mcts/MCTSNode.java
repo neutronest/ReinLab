@@ -39,8 +39,43 @@ public class MCTSNode {
     }
 
     public MCTSNode expandNode() {
-        return null;
+
+        if (this.isAllExpanded()) {
+            logger.warn("Failing expand... All the nodes has been expanded...");
+            return this;
+        }
+
+        List<String> appliedActionNames = this.children
+            .stream()
+            .map(mctsNode -> mctsNode.gameStatus.applyActionName)
+            .collect(Collectors.toList());
+        List<GameAction> availableGameActions = this.gameStatus.getAvailableGameActions();
+        Boolean hasExpanded = false;
+        GameAction toBeAppliedAction = null;
+        while (hasExpanded != true) {
+            Random rand = new Random();
+            Integer applyActionId = rand.nextInt(availableGameActions.size());
+            GameAction applyAction = availableGameActions.get(applyActionId);
+            String actionName = applyAction.getName();
+            if (appliedActionNames.contains(actionName)) {
+                continue;
+            }
+            hasExpanded = true;
+            toBeAppliedAction = applyAction;
+        }
+        if (toBeAppliedAction == null) {
+            logger.warn("Failing expand... The to be applied action is null...");
+            return this;
+        }
+
+        GameStatus nextGameStatus = this.gameStatus.applySpecialAction(toBeAppliedAction);
+        MCTSNode mctsNode = new MCTSNode();
+        mctsNode.gameStatus = nextGameStatus;
+        mctsNode.parent = this;
+        this.children.add(mctsNode);
+        return mctsNode; 
     }
+
 
     public MCTSNode getBestChild(Integer isExploration) {
         
