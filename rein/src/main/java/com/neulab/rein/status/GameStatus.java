@@ -78,7 +78,10 @@ public class GameStatus implements Serializable {
 
         // TODO
         // Duplicate codes.. Need to refactor
+        // issue
+        // need check player if deep copy
         GameStatus nextGameStatus = this.deepCopy();
+        GameAction appliedGameActionCopy = appliedGameAction.deepCopy();
 
         if (nextGameStatus.isTerminated()) {
             logger.warn(GameContants.EXCEPTION_GAME_IS_TERMINATED);

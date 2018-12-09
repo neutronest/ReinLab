@@ -1,8 +1,9 @@
 package com.neulab.rein.player;
 
+import com.neulab.rein.status.GameStatus;
 import com.neulab.rein.utils.GameContants;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.List;
 
 public class Player implements Serializable {
@@ -61,6 +62,24 @@ public class Player implements Serializable {
                 this.displayName, this.getCurHP(), this.getCurEP(), this.getCurSP(),
                 this.getShell(), this.getEncourage()));
         return sb.toString();
+    }
+
+    public Player deepCopy() {
+
+        Player playerCopy = null;
+
+        try {
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            ObjectOutputStream oo = new ObjectOutputStream(bo);
+            oo.writeObject(this);
+
+            ByteArrayInputStream bi=new ByteArrayInputStream(bo.toByteArray());
+            ObjectInputStream oi=new ObjectInputStream(bi);
+            playerCopy = (Player)(oi.readObject());
+        } catch (Exception e){
+            //logger.error("DeepCopy Failed!!!");
+        }
+        return playerCopy;
     }
 
     public Integer getState() {

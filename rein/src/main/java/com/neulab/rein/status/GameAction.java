@@ -1,6 +1,6 @@
 package com.neulab.rein.status;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,6 +52,26 @@ public class GameAction implements Serializable {
         System.out.println(String.format("apply: %s", this.toString()));
 
     }
+
+
+    public GameAction deepCopy() {
+
+        GameAction gameActionCopy = null;
+
+        try {
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            ObjectOutputStream oo = new ObjectOutputStream(bo);
+            oo.writeObject(this);
+
+            ByteArrayInputStream bi=new ByteArrayInputStream(bo.toByteArray());
+            ObjectInputStream oi=new ObjectInputStream(bi);
+            gameActionCopy = (GameAction)(oi.readObject());
+        } catch (Exception e){
+            logger.error("DeepCopy Failed!!!");
+        }
+        return gameActionCopy;
+    }
+
 
     @Override
     public String toString() {
