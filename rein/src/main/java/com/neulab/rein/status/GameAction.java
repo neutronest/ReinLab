@@ -25,6 +25,16 @@ public class GameAction implements Serializable {
         this.applySkill = applySkill;
     }
 
+    public String getName() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(this.caster.getName());
+        sb.append("@@");
+        sb.append(String.join("@@", targetPlayers.stream().map(player -> player.getName()).collect(Collectors.toList())));
+        sb.append("@@");
+        sb.append(applySkill.getName());
+        return sb.toString();
+    }
+
     public static List<GameAction> getAvailableGameActions(List<GameAction> gameActionCandidates) {
 
         List<GameAction> availableGameActions = new ArrayList<>();

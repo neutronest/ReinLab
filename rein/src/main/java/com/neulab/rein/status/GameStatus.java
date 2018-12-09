@@ -134,7 +134,7 @@ public class GameStatus implements Serializable {
         }
         return players;
     }
-    
+
     public Boolean isEnemyTurn() {
 
         for(Map.Entry<String, Player> entry: this.playerMap.entrySet()) {
