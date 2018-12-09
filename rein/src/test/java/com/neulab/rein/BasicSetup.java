@@ -120,7 +120,7 @@ public class BasicSetup {
                 "艾丝蒂尔",
                 2000.0,
                 200.0,
-                0.0,
+                200.0,
                 200.0,
                 estelleSkillTokens,
                 0);
