@@ -19,6 +19,8 @@ import static com.neulab.rein.BasicSetup.*;
 
 public class MCTSNodeTest {
 
+    private static Logger logger = LoggerFactory.getLogger(MCTSNodeTest.class);
+
     @Test
     public void shouldNotAllExpanded() {
         MCTSNode mctsNode = getStartMCTSNode();
@@ -31,6 +33,25 @@ public class MCTSNodeTest {
         Assert.assertEquals(expandedMCTSNode.isAllExpanded(), true);
     }
 
+    @Test
+    public void shouldGetDefaultPolicy() {
+        for(int i=0; i<10; i++) {
+            MCTSNode mctsNode = getStartMCTSNode();
+            Double reward = mctsNode.defaultPolicy();
+            logger.info(String.format("Reward for default policy: %.2f", reward));
+        }
+    }
 
+    @Test
+    public void shouldGetTreePolicy() {
+        MCTSNode mctsNode = getStartMCTSNode();
+        mctsNode.treePolicy();
 
+    }
+
+    @Test
+    public void shouldGetUCTSearch() {
+        MCTSNode mctsNode = getStartMCTSNode();
+        mctsNode.UCTSearch(10);
+    }
 }

@@ -29,6 +29,61 @@ public class MCTSNode {
         this.qValue = 0.0;
     }
 
+    public MCTSNode UCTSearch(Integer computationalBudget) {
+
+        for(int epoch=0; epoch < computationalBudget; epoch++) {
+            //System.out.println("epoch: " + epoch);
+            MCTSNode mctsLeaf = this.treePolicy();
+            Double reward = mctsLeaf.defaultPolicy();
+            mctsLeaf.backProp(reward);
+        }
+        // TODO DEV
+        return this;
+
+    }
+
+    public void replay()  throws InterruptedException {
+
+        MCTSNode curNode = this;
+        while (curNode.gameStatus.isTerminated() != true) {
+            curNode.UCTSearch(500);
+            System.out.println(curNode.gameStatus.applyActionName);
+            System.out.println(curNode.gameStatus.repr());
+            MCTSNode nextNode = curNode.getBestChild(0);
+            if (nextNode == null) {
+                System.out.println("Search is not enough");
+                GameStatus nextGameStatus = curNode.gameStatus.applyRandomAction();
+                nextNode = new MCTSNode();
+                nextNode.gameStatus = nextGameStatus;
+                nextNode.parent = curNode;
+            }
+            curNode = nextNode;
+            Thread.sleep(1000);
+        }
+    }
+
+    public MCTSNode treePolicy() {
+
+        MCTSNode curNode = this;
+        while (curNode.gameStatus.isTerminated() != true) {
+            if (curNode.isAllExpanded() != true) {
+                return curNode.expandNode();
+            } else {
+                curNode = curNode.getBestChild(1);
+            }
+        }
+        return curNode;
+    }
+
+    public Double defaultPolicy() {
+        
+        GameStatus currentGameStatus = this.gameStatus;
+        while (currentGameStatus.isTerminated() != true) {
+            currentGameStatus = currentGameStatus.applyRandomAction();
+        }
+        return currentGameStatus.getReward();
+    }
+
     public Boolean isAllExpanded() {
 
         Integer availableGameActionCount = this.gameStatus.getAvailableGameActions().size();
@@ -79,19 +134,46 @@ public class MCTSNode {
 
     public MCTSNode getBestChild(Integer isExploration) {
         
-        return null;
-    }
-
-    public Double defaultPolicy() {
-        
-        GameStatus currentGameStatus = this.gameStatus;
-        while (currentGameStatus.isTerminated() != true) {
-            currentGameStatus = currentGameStatus.applyRandomAction();
+        if (this.gameStatus.isEnemyTurn()) {
+            // when enemy turn
+            // select an available action randomly
+            GameStatus nextGameStatus = this.gameStatus.applyRandomAction();
+            for (MCTSNode childNode : this.children) {
+                if (childNode.gameStatus.applyActionName.equals(nextGameStatus.applyActionName)) {
+                    return childNode;
+                }
+            }
+            // expand new node
+            MCTSNode mctsNode = new MCTSNode();
+            mctsNode.gameStatus = nextGameStatus;
+            this.children.add(mctsNode);
+            return mctsNode;
         }
-        return currentGameStatus.getReward();
+
+        Double maxValue = -9999.0;
+        MCTSNode choiceNode = null;
+        for (MCTSNode childNode: this.children) {
+            Double tempValue = childNode.qValue / childNode.visitTimes + isExploration * Math.sqrt(2 * Math.log(this.visitTimes) / childNode.visitTimes);
+            if (maxValue < tempValue) {
+                maxValue = tempValue;
+                choiceNode = childNode;
+            }
+        }
+        return choiceNode;
+    }
+    
+    public void backProp(Double reward) {
+
+        MCTSNode curNode = this;
+        while (curNode != null) {
+            curNode.visitTimes += 1;
+            curNode.qValue += reward;
+            curNode = curNode.parent;
+        }
+        return;        
     }
 
-    public MCTSNode treePolicy() {
-        return null;
-    }
+    
+
+    
 }
