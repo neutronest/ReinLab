@@ -48,8 +48,7 @@ public class GameAction implements Serializable {
 
     public void apply() {
         this.applySkill.apply(caster, targetPlayers);
-        logger.warn(String.format("apply: %s", this.toString()));
-        System.out.println(String.format("apply: %s", this.toString()));
+        logger.info(String.format("apply: %s", this.toString()));
 
     }
 
