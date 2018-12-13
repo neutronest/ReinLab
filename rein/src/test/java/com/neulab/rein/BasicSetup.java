@@ -99,7 +99,6 @@ public class BasicSetup {
                 add("NaiveHeal");
                 add("MasterHeal");
                 add("MasterShell");
-                add("Encourage");
             }
         };
         List<String> joshuaSkillTokens = new ArrayList<String>(){

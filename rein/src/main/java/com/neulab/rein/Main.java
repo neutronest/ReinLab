@@ -1,5 +1,6 @@
 package com.neulab.rein;
 
+import com.neulab.rein.mcts.MCTSNode;
 import com.neulab.rein.player.Player;
 import com.neulab.rein.skill.*;
 import com.neulab.rein.status.GameStatus;
@@ -33,7 +34,6 @@ public class Main {
                 add("NaiveHeal");
                 add("MasterHeal");
                 add("MasterShell");
-                add("Encourage");
             }
         };
         List<String> joshuaSkillTokens = new ArrayList<String>(){
@@ -93,13 +93,18 @@ public class Main {
 
 
         GameStatus gameStatus = new GameStatus(players, skillFactory, 0, 1);
-        GameStatus nextGameStatus = gameStatus.applyRandomAction();
-        while(!nextGameStatus.isTerminated()) {
-            nextGameStatus = nextGameStatus.applyRandomAction();
-            System.out.println(nextGameStatus.repr());
-            Thread.sleep(100);
-        }
+        MCTSNode rootNode = new MCTSNode();
+        rootNode.gameStatus = gameStatus;
+        //rootNode.UCTSearch(1000);
+        rootNode.replay();
+        // GameStatus nextGameStatus = gameStatus.applyRandomAction();
+        // while(!nextGameStatus.isTerminated()) {
+        //     nextGameStatus = nextGameStatus.applyRandomAction();
+        //     System.out.println(nextGameStatus.repr());
+        //     Thread.sleep(100);
+        // }
         //GameStatus gameStatus = new GameStatus(players);
+
     }
 
 }
