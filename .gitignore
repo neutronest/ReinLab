@@ -26,3 +26,6 @@ hs_err_pid*
 build
 classes
 .vscode/
+.project
+.settings
+*.txt
