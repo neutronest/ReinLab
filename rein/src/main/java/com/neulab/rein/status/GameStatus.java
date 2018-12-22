@@ -142,6 +142,9 @@ public class GameStatus implements Serializable {
             } else if (skill.getSkillType().intValue() == GameContants.SKILL_TYPE_MULTI_FOR_SELF_FRIENDS) {
                 gameActionCandidates.add(new GameAction(activePlayer, ourTeamPlayers, skill));
 
+            } else if (skill.getSkillType().intValue() == GameContants.SKILL_TYPE_SINGLE_FOR_SELF) {
+                gameActionCandidates.add(new GameAction(activePlayer, ourTeamPlayers, skill));
+
             } else if (Objects.equals(skill.getSkillType(), GameContants.SKILL_TYPE_SINGLE_FOR_ENEMY)) {
                 for(Player targetPlayer: otherTeamPlayers) {
                     List<Player> targetPlayers = new ArrayList<>();

@@ -23,6 +23,7 @@ public class SkillFactory implements Serializable {
         this.skillTable.put(MasterHeal.name, new MasterHeal());
         this.skillTable.put(NaiveHeal.name, new NaiveHeal());
         this.skillTable.put(ShadowRaid.name, new ShadowRaid());
+        this.skillTable.put(RestoreEP.name, new RestoreEP());
     }
 
     public List<Skill> getCandidateSkillsBySkillTokens(List<String> skillTokens ) {

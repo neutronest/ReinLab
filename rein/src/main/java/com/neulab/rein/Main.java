@@ -34,6 +34,7 @@ public class Main {
                 add("NaiveHeal");
                 add("MasterHeal");
                 add("MasterShell");
+                add("RestoreEP");
             }
         };
         List<String> joshuaSkillTokens = new ArrayList<String>(){
