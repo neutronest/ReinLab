@@ -20,7 +20,7 @@ public class ShadowAttack implements Skill, Serializable {
         }
 
         Double atkValue = 1.6 * caster.getCurATK();
-        if (caster.getEncourage() != 0) {
+        if (caster.getEncourage() > 0) {
             atkValue = 1.5 * atkValue;
             caster.setEncourage(caster.getEncourage() - 1);
         }

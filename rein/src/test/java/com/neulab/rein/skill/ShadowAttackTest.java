@@ -62,13 +62,14 @@ public class ShadowAttackTest {
         Double targetPlayerHP = targetPlayer.getCurHP();
         ShadowAttack shadowAttack = new ShadowAttack();
         shadowAttack.apply(leon, players);
-        System.out.println(String.format("%.2f", targetPlayerHP - 1.6 * leon.getCurATK() ));
-        System.out.println(String.format("%.2f", targetPlayer.getCurHP().doubleValue() ));
         Assert.assertTrue(
-            targetPlayerHP - 1.6 * leon.getCurATK() == 
-            targetPlayer.getCurHP().doubleValue());
+            Math.abs(
+                (targetPlayerHP - 1.6 * leon.getCurATK()) - 
+                targetPlayer.getCurHP().doubleValue()
+            ) < GameContants.EPSILON);
     }
 
+    @Test
     public void shouldEffectMoreWhenCasterEncouraged() {
         Pair<Player, List<Player>> playerPair = getAssignPlayers();
         Player caster = playerPair.getKey();
@@ -79,13 +80,14 @@ public class ShadowAttackTest {
         Double targetPlayerHP = targetPlayer.getCurHP();
         ShadowAttack shadowAttack = new ShadowAttack();
         shadowAttack.apply(leon, players);
-        System.out.println(String.format("%.2f", targetPlayerHP - 1.6 * leon.getCurATK() ));
-        System.out.println(String.format("%.2f", targetPlayer.getCurHP().doubleValue() ));
         Assert.assertTrue(
-            targetPlayerHP - 1.5 * 1.6 * leon.getCurATK() == 
-            targetPlayer.getCurHP().doubleValue());
+            Math.abs(
+                (targetPlayerHP - 1.5 * 1.6 * leon.getCurATK()) - 
+                targetPlayer.getCurHP().doubleValue()
+            ) < GameContants.EPSILON);
     }
 
+    @Test
     public void ShouldNotEffectWhenTargetPlayersHasShell() {
         Pair<Player, List<Player>> playerPair = getAssignPlayers();
         Player caster = playerPair.getKey();
@@ -96,11 +98,11 @@ public class ShadowAttackTest {
         Double targetPlayerHP = targetPlayer.getCurHP();
         ShadowAttack shadowAttack = new ShadowAttack();
         shadowAttack.apply(leon, players);
-        System.out.println(String.format("%.2f", targetPlayerHP - 1.6 * leon.getCurATK() ));
-        System.out.println(String.format("%.2f", targetPlayer.getCurHP().doubleValue() ));
         Assert.assertTrue(
-            targetPlayerHP == 
-            targetPlayer.getCurHP().doubleValue());
+            Math.abs(
+                (targetPlayerHP) - 
+                targetPlayer.getCurHP().doubleValue()
+            ) < GameContants.EPSILON);
 
     }
 
