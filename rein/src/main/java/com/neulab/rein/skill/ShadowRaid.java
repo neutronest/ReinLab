@@ -23,6 +23,14 @@ public class ShadowRaid implements Skill, Serializable {
         Double casterCurSP = caster.getCurSP();
         caster.setCurSP(casterCurSP - this.costSP);
 
+        Integer atkValue = 0;
+        if (caster.getEncourage() != 0) {
+            atkValue = 1.5 * 8 * caster.getCurATK();
+            caster.setEncourage(caster.getEncourage() - 1);
+        } else {
+            atkValue = 8 * caster.getCurATK();
+        }
+
 
         for (Player player : targetPlayers) {
 
@@ -37,7 +45,7 @@ public class ShadowRaid implements Skill, Serializable {
             }
 
             Double playerCurHP = player.getCurHP();
-            player.setCurHP(Math.max(0, playerCurHP - 8 * caster.getCurATK()));
+            player.setCurHP(Math.max(0, playerCurHP - atkValue));
             return;
 
         }
