@@ -58,7 +58,7 @@ public class MCTSNode {
                 nextNode.parent = curNode;
             }
             curNode = nextNode;
-            Thread.sleep(1000);
+            //Thread.sleep(1000);
         }
     }
 

@@ -65,7 +65,7 @@ public class Main {
                 1800.0,
                 0.0,
                 0.0,
-                300.0,
+                400.0,
                 joshuaSkillTokens,
                 0
         );
