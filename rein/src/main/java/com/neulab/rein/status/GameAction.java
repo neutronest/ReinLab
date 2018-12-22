@@ -35,6 +35,16 @@ public class GameAction implements Serializable {
         return sb.toString();
     }
 
+    public String getDisplayName() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(String.format("行动者: %s", this.caster.getDisplayName()));
+        sb.append("@@ 目标: [");
+        sb.append(String.join("@@", targetPlayers.stream().map(player -> player.getDisplayName()).collect(Collectors.toList())));
+        sb.append("] @@ 技能: ");
+        sb.append(applySkill.getDisplayName());
+        return sb.toString();
+    }
+
     public static List<GameAction> getAvailableGameActions(List<GameAction> gameActionCandidates) {
 
         List<GameAction> availableGameActions = new ArrayList<>();

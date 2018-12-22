@@ -68,7 +68,7 @@ public class GameStatus implements Serializable {
         Integer applyActionId = rand.nextInt(availableGameActions.size());
         GameAction applyAction = availableGameActions.get(applyActionId);
         applyAction.apply();
-        nextGameStatus.applyActionName = applyAction.getName();
+        nextGameStatus.applyActionName = applyAction.getDisplayName();
         nextGameStatus.updatePlayerState();
         nextGameStatus.playerActionToken = nextGameStatus.getNextTurn();
         return nextGameStatus;
@@ -115,7 +115,7 @@ public class GameStatus implements Serializable {
                 continue;
             }
         }
-        nextGameStatus.applyActionName = appliedGameAction.getName();
+        nextGameStatus.applyActionName = appliedGameAction.getDisplayName();
         nextGameStatus.updatePlayerState();
         nextGameStatus.playerActionToken = nextGameStatus.getNextTurn();
         return nextGameStatus;
