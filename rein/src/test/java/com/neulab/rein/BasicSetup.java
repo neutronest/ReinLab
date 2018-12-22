@@ -138,8 +138,8 @@ public class BasicSetup {
                 "leon",
                 "剑帝莱维",
                 20000.0,
-                assignEP,
-                assignSP,
+                200.0,
+                200.0,
                 500.0,
                 leonSkillTokens,
                 1
@@ -157,6 +157,13 @@ public class BasicSetup {
         caster.setCurSP(100.0);
         
         return new Pair<Player, List<Player>>(caster, players);
+    }
+
+    public static Player getBoss() {
+        Pair<Player, List<Player>> playerPair = getAssignPlayers();
+        List<Player> players = playerPair.getValue();
+        Player leon = players.get(2);
+        return leon;
     }
 
     public static GameStatus getGameStatus() {
@@ -185,7 +192,7 @@ public class BasicSetup {
         mctsNode.gameStatus = gameStatus;
         List<GameAction> availableGameActions = gameStatus.getAvailableGameActions();
         for (GameAction gameAction: availableGameActions) {
-            logger.warn(gameAction.getName());
+            //logger.warn(gameAction.getName());
             GameStatus nextGameStatus = gameStatus.applySpecialAction(gameAction);
             MCTSNode childNode = new MCTSNode();
             childNode.gameStatus = nextGameStatus;

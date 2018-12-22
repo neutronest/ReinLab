@@ -47,6 +47,7 @@ public class Main {
         List<String> leonSkillTokens = new ArrayList<String>() {
             {
                 add("NormalAttack");
+                add("ShadowAttack");
             }
         };
 

@@ -23,7 +23,7 @@ public class ShadowRaid implements Skill, Serializable {
         Double casterCurSP = caster.getCurSP();
         caster.setCurSP(casterCurSP - this.costSP);
 
-        Integer atkValue = 0;
+        Double atkValue = 0.0;
         if (caster.getEncourage() != 0) {
             atkValue = 1.5 * 8 * caster.getCurATK();
             caster.setEncourage(caster.getEncourage() - 1);

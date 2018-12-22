@@ -20,4 +20,7 @@ public class GameContants {
 
     public static String EXCEPTION_GAME_IS_TERMINATED = "the game has been terminated";
     public static String EXCEPTION_NO_CORRESPONDING_PLAYER = "no corresponding player founded";
+
+    public static double EPSILON = 0.00000001;
+
 }
