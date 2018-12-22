@@ -15,7 +15,7 @@ public class RestoreEP implements Skill, Serializable {
     public static String name = "RestoreEP";
     public static String displayName = "EP回复";
 
-    public Double costSP = 40.0;
+    public Double costSP = 100.0;
     public Double addEP = 100.0;
 
     public Integer skillType = GameContants.SKILL_TYPE_SINGLE_FOR_SELF;

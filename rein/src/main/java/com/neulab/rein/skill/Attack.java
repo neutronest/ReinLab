@@ -53,6 +53,14 @@ public class Attack implements Skill, Serializable {
 
     @Override
     public Boolean isAvailable(Player caster, List<Player> targetPlayers) {
+        
+        if (targetPlayers == null || targetPlayers.size() == 0) {
+            return false;
+        }
+        Player targetPlayer = targetPlayers.get(0);
+        if (targetPlayer.getState() == GameContants.PLAYER_STATE_DEAD) {
+            return false;
+        }
         return true;
     }
 
