@@ -40,7 +40,7 @@ public class DoubleAttack implements Skill, Serializable {
             targetPlayer.setCurHP(Math.max(targetPlayerCurHP - caster.getCurATK() * 3, 0));
             caster.setEncourage(caster.getEncourage() - 1);
         }
-        caster.setCurSP(Math.min(200.0, caster.getCurSP() - 10.0));
+        caster.setCurSP(Math.min(200.0, caster.getCurSP() + 10.0));
         targetPlayer.setCurSP(Math.min(200.0, targetPlayer.getCurSP() + 10.0));
 
         return;

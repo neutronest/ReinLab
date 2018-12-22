@@ -12,7 +12,7 @@ public class Encourage implements Skill, Serializable {
 
     public static String name = "Encourage";
     public static String displayName = "大家加油啊!";
-    private Double costSP = 60.0;
+    private Double costEP = 60.0;
     private Integer maxEffort = 3;
     public Integer skillType = GameContants.SKILL_TYPE_MULTI_FOR_SELF_FRIENDS;
 
@@ -31,14 +31,14 @@ public class Encourage implements Skill, Serializable {
             player.setEncourage(this.maxEffort);
         }
 
-        Double casterCurSP = caster.getCurSP();
-        caster.setCurSP(casterCurSP - this.costSP);
+        Double casterCurEP = caster.getCurEP();
+        caster.setCurEP(casterCurEP - this.costEP);
 
     }
 
     @Override
     public Boolean isAvailable(Player caster, List<Player> targetPlayers) {
-        if (caster.getCurSP() < this.costSP) {
+        if (caster.getCurEP() < this.costEP) {
             return false;
         }
         return true;
