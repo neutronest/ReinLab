@@ -8,6 +8,7 @@ This is a turn-based RPG simulator. In this game we implement a MCTS algorithm t
 To run the game:
 `
 cd rein
+
 gradle run
 `
 
