@@ -99,6 +99,7 @@ public class Main {
         rootNode.gameStatus = gameStatus;
         //rootNode.UCTSearch(1000);
         rootNode.replay();
+        
         // GameStatus nextGameStatus = gameStatus.applyRandomAction();
         // while(!nextGameStatus.isTerminated()) {
         //     nextGameStatus = nextGameStatus.applyRandomAction();

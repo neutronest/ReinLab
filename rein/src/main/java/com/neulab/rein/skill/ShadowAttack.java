@@ -35,6 +35,7 @@ public class ShadowAttack implements Skill, Serializable {
         }
 
         targetPlayer.setCurHP(Math.max(0.0, targetPlayer.getCurHP() - atkValue));
+        targetPlayer.setCurSP(Math.min(200.0, targetPlayer.getCurSP() + 20.0));
         return;
     }
 

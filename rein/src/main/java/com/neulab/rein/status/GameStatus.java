@@ -258,7 +258,7 @@ public class GameStatus implements Serializable {
 
             String playerName = entry.getKey();
             Player player = entry.getValue();
-            if (player.getCurHP() <= 0) {
+            if ( Math.abs(player.getCurHP() - 0.0) < GameContants.EPSILON) {
                 player.setState(GameContants.PLAYER_STATE_DEAD);
             }
         }

@@ -42,7 +42,7 @@ public class MCTSNode {
 
     }
 
-    public void replay()  throws InterruptedException {
+    public void replay() throws InterruptedException {
 
         MCTSNode curNode = this;
         while (curNode.gameStatus.isTerminated() != true) {
@@ -60,6 +60,8 @@ public class MCTSNode {
             curNode = nextNode;
             //Thread.sleep(1000);
         }
+        System.out.println("Result: ");
+        System.out.println(curNode.gameStatus.repr());
     }
 
     public MCTSNode treePolicy() {

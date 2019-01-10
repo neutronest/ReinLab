@@ -21,6 +21,9 @@ public class Attack implements Skill, Serializable {
     @Override
     public void apply(Player caster, List<Player> targetPlayers) {
 
+        if (!this.isAvailable(caster, targetPlayers)) {
+            return;
+        }
         
         if (targetPlayers == null) {
             logger.error("players must not been null!");

@@ -1,5 +1,6 @@
 package com.neulab.rein.utils;
 
+
 public class GameContants {
 
     public static Integer PLAYER_STATE_ALIVE = 0;

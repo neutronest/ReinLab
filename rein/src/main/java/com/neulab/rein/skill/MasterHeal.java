@@ -27,7 +27,7 @@ public class MasterHeal implements Skill, Serializable {
         caster.setCurEP(casterCurEP - this.costEP);
 
         for (Player player: targetPlayers) {
-            if (player.getState() == GameContants.PLAYER_STATE_DEAD) {
+            if (player.getState().intValue() == GameContants.PLAYER_STATE_DEAD) {
                 continue;
             }
 
