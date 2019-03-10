@@ -46,7 +46,7 @@ public class MCTSNode {
 
         MCTSNode curNode = this;
         while (curNode.gameStatus.isTerminated() != true) {
-            curNode.UCTSearch(500);
+            curNode.UCTSearch(100);
             System.out.println(curNode.gameStatus.applyActionName);
             System.out.println(curNode.gameStatus.repr());
             MCTSNode nextNode = curNode.getBestChild(0);
